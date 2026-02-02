@@ -1,7 +1,7 @@
 pessoas = []
 
 def cadastrar_pessoa():
-    nome = input('Nome: ').strip().capitalize()
+    nome = input('Nome: ').strip().title()
     
     try:
         idade = int(input('Idade: '))
@@ -9,24 +9,48 @@ def cadastrar_pessoa():
         print('❌ Erro: A idade precisa ser um valor inteiro.')
         return 
     
+    cargo = input('Cargo (Ex: Dev, Admin, Design): ').strip().title()
+    
     pessoa = {
         'nome': nome,
-        'idade': idade
+        'idade': idade,
+        'cargo': cargo
     }
 
     pessoas.append(pessoa)
-    print('Pessoa cadastrada com sucesso!')
+    print(f'✅ {nome} ({cargo}) cadastrado com sucesso!')
     
 def listar_pessoas():
     if not pessoas:
         print('Nenhuma pessoa cadastrada.')
         return
     
-    print('\n === Lista de Usuários ===')
+    print('\n === Todos os cadastros ===')
     
-    for i, pessoa in enumerate(pessoas, 1):
-        print(f'-{i}. {pessoa["nome"]} ({pessoa["idade"]} anos)')
+    for p in pessoas:
+        print(f"Nome: {p['nome']} | Idade: {p['idade']} | Cargo: {p['cargo']}")
 
+def buscar_cargo():
+    if not pessoas:
+        print('\n Não há ninguém cadastrado para buscar.')
+        return
+    
+    busca = input('Digite o cargo que deseja filtrar: ').strip().capitalize()
+    
+    encontrados = []
+    
+    for p in pessoas:
+        if p['cargo'] == busca:
+            encontrados.append(p)
+
+    if len(encontrados) > 0:
+        print(f'\n === Resultados para busca: {busca} ===')
+        for p in encontrados:
+            print(f" -{p['nome']} ({p['idade']} anos)")
+    
+    else:
+        print(f'⚠️ Nenhum profissional encontrado com o cargo: {busca}.')
+        
 def menu():
     while True:
         print('\n === MENU ===')
