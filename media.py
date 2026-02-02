@@ -53,7 +53,7 @@ def menu():
         print('1 - Calcular média')
         print('2 - Sair')
 
-        opcao = input('Escolha uma opção: ')
+        opcao = input('Escolha uma opção: ').strip()
 
         if opcao == '1':
             calcular_media()
