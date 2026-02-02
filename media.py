@@ -1,4 +1,4 @@
-# --- Aplicação para calcular uma média entre diversas notas! ---
+# --- Aplicação para calcular uma média entre notas! ---
 
 def solicitar_quantidade_notas():
     '''Função para solicitar quantidade de notas.'''
