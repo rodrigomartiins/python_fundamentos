@@ -1,0 +1,42 @@
+pessoas = []
+
+def cadastrar_pessoa():
+    nome = input('Nome: ')
+    idade = int(input('Idade: '))
+    
+    pessoa = {
+        'nome': nome,
+        'idade': idade
+    }
+
+    pessoas.append(pessoa)
+    print('Pessoa cadastrada com sucesso!')
+    
+def listar_pessoas():
+    if not pessoas:
+        print('Nenhuma pessoa cadastrada.')
+        return
+    
+    for pessoa in pessoas:
+        print(f'- {pessoa["nome"]} ({pessoa["idade"]} anos)')
+
+def menu():
+    while True:
+        print('\n === MENU ===')
+        print('1 - Cadastrar pessoa')
+        print('2 - Listar pessoas')
+        print('3 - Sair')
+        
+        opcao = input('Digite uma opção: ')
+        
+        if opcao == '1':
+            cadastrar_pessoa()
+        elif opcao == '2':
+            listar_pessoas()
+        elif opcao == '3':
+            print('Saindo do programa ...')
+            break
+        else:
+            print('Opção Inválida')
+            
+menu()
