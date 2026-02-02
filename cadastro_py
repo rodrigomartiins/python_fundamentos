@@ -1,8 +1,13 @@
 pessoas = []
 
 def cadastrar_pessoa():
-    nome = input('Nome: ')
-    idade = int(input('Idade: '))
+    nome = input('Nome: ').strip().capitalize()
+    
+    try:
+        idade = int(input('Idade: '))
+    except ValueError:
+        print('❌ Erro: A idade precisa ser um valor inteiro.')
+        return 
     
     pessoa = {
         'nome': nome,
@@ -17,8 +22,10 @@ def listar_pessoas():
         print('Nenhuma pessoa cadastrada.')
         return
     
-    for pessoa in pessoas:
-        print(f'- {pessoa["nome"]} ({pessoa["idade"]} anos)')
+    print('\n === Lista de Usuários ===')
+    
+    for i, pessoa in enumerate(pessoas, 1):
+        print(f'-{i}. {pessoa["nome"]} ({pessoa["idade"]} anos)')
 
 def menu():
     while True:
@@ -37,6 +44,7 @@ def menu():
             print('Saindo do programa ...')
             break
         else:
-            print('Opção Inválida')
+            print('⚠️ Opção Inválida')
             
-menu()
+if __name__ == '__main__':
+    menu()
