@@ -1,12 +1,14 @@
 # --- Aplicação para calcular uma média entre notas! ---
 
 def solicitar_quantidade_notas():
-    '''Função para solicitar quantidade de notas.'''
-    quantidade = int(input('Digite quantas notas gostaria de inserir: '))
-    if quantidade <= 0:
-        raise ValueError('Quantidade inválida!')
-    return quantidade
-
+    while True:
+        try:
+            quantidade = int(input('Digite quantas notas gostaria de inserir: '))
+            if quantidade > 0:
+                return quantidade
+            print('Erro: Digite um número maior que zero.')
+        except ValueError:
+            print('Erro: Digite um número inteiro válido.')
 
 def solicitar_nota(indice):
     '''Função que solicita a nota pro usuário.'''
@@ -20,32 +22,32 @@ def solicitar_nota(indice):
         except ValueError:
             print('Digite apenas números.')
 
-
-def calcular_media():
-    '''Função para o calculo da média.'''
-    try:
-        quantidade = solicitar_quantidade_notas()
-        soma = 0
-
-        for i in range(1, quantidade + 1):
-            soma += solicitar_nota(i)
-
-        media = soma / quantidade
-        exibir_resultado(media)
-    except ValueError as erro:
-        print(f'Erro: {erro}')
-
+def processar_media(lista_notas):
+    soma = sum(lista_notas)
+    return soma / len(lista_notas)
 
 def exibir_resultado(media):
-    '''Função que exibe o resultado da média.'''
+    status = ""
     if media <= 5:
-        print(f'Sua média final foi de {media:.2f}. Você está Reprovado.')
+        status = 'Reprovado'
     elif media < 7:
-        print(f'Sua média final foi de {media:.2f}. Você está de Recuperação.')
+        status = 'de Recuperação'
     else:
-        print(f'Sua média final foi de {media:.2f}. Você foi Aprovado!')
+        status = 'Aprovado'
+    print(f'\nSua média final foi de {media:.2f}. Status: {status}')
 
-
+def executar_calculo():
+    quantidade = solicitar_quantidade_notas()
+    notas = []
+    
+    for i in range(1, quantidade + 1):
+        nota_atual = solicitar_nota(i)
+        notas.append(nota_atual)
+        
+    resultado = processar_media(notas)
+    
+    exibir_resultado(resultado)
+    
 def menu():
     '''Função que exibe o menu com as opções.'''
     while True:
@@ -56,13 +58,12 @@ def menu():
         opcao = input('Escolha uma opção: ').strip()
 
         if opcao == '1':
-            calcular_media()
+           executar_calculo()
         elif opcao == '2':
             print('Saindo do programa...')
             break
         else:
             print('Opção Inválida')
-
 
 if __name__ == "__main__":
     menu()
